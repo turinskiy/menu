@@ -15,6 +15,7 @@
             margin: 0;
             padding: 0;
         }
+
         div {
             box-sizing: border-box;
         }
@@ -26,16 +27,16 @@
         .parent {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            /* flex-grow: 1; */
             border: 1px solid black;
             height: 100%;
             width: 15rem;
         }
 
-        .item {            
+        /* .item {            
             padding: .5rem;
             border: 1px solid black;
-        }
+        } */
 
         .logo {
             flex-grow: 0;
@@ -55,10 +56,62 @@
         .support {
             flex-grow: 1;
         }
+
+        /* ========= Grid ========= */
+        .container {
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: [col1] 40px [col2] 50px [col3] auto [col4] 50px [col5] 40px [col6];
+            grid-template-rows: [row1] 10% [row2] auto [row3] 10% [row4];
+            /* background-color: #fad9f2; */
+            width: 100%;
+            height: 100%;
+        }
+
+        .item {
+            padding: .5rem;
+        }
+        .item-header {
+            grid-column-start: col1;
+            grid-column-end: col6;
+            grid-row-start: row1;
+            grid-row-end: row2;
+            min-height: 3rem;
+        }
+
+        .item-sidebar {
+            grid-column-start: col1; 
+            grid-column-end: col3;
+            grid-row-start: row2;
+            grid-row-end: row3;
+        }
+
+        .item-body {
+            grid-column-start: col3; 
+            grid-column-end: col6;
+            grid-row-start: row2;
+            grid-row-end: row3;
+        }
+
+        .item-footer {
+            grid-column-start: col1; 
+            grid-column-end: col6;
+            grid-row-start: row3;
+            grid-row-end: row4;
+            min-height: 3rem;
+        }
+
+        .sub-item {
+            box-sizing: border-box;
+            border: 1px solid black;
+            background-color: #e6fae2;
+            min-height: 100%;
+        }
+
     </style>
 </head>
 <body>
-    <div class="parent">
+    <!-- <div class="parent">
         <div class="item logo">Logo</div>
         <div class="item user">User</div>
         <div class="item menu-items">
@@ -70,6 +123,21 @@
         </div>
         <div class="item theme">Theme</div>
         <div class="item support">Support</div>
+    </div> -->
+
+    <div class="container">
+        <div class="item item-header">
+            <div class="sub-item">Header</div>
+        </div>
+        <div class="item item-sidebar">
+            <div class="sub-item">Sidebar</div>
+        </div>
+        <div class="item item-body">
+            <div class="sub-item">Body</div>
+        </div>
+        <div class="item item-footer">
+            <div class="sub-item">Footer</div>
+        </div>
     </div>
 </body>
 </html>
