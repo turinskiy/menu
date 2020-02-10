@@ -8,18 +8,24 @@
     <style>
         .item-a {
         grid-area: header;
+        background-color: darkorange;
         }
         .item-b {
         grid-area: main;
+        background-color: cornflowerblue;
         }
         .item-c {
         grid-area: sidebar;
+        background-color: crimson;
         }
         .item-d {
         grid-area: footer;
+        background-color: darkolivegreen;
         }
 
         .container {
+            width: 100%;
+            height: 300px;
         display: grid;
         grid-template-columns: 50px 50px 50px 50px;
         grid-template-rows: auto;
@@ -31,6 +37,11 @@
     </style>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="item-a"></div>
+        <div class="item-b"></div>
+        <div class="item-c"></div>
+        <div class="item-d"></div>
+    </div>
 </body>
 </html>
