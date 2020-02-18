@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <style>
+        div {
+            box-sizing: border-box;
+            border: 1px solid black
+        }
+        .container {
+            display: flex;
+            height: 300px;
+        }
+
+        .item {
+            margin: 1rem;
+        }
+
+        .menu-expanded {
+            width: 285px;
+            transform: translateX(0);
+            animation-name: expand-menu;
+            animation-duration: 2s;
+        }
+
+        .menu-collapsed {
+            /* width: 80px; */
+            transform: translateX(0);
+            animation-name: collapse-menu;
+            animation-duration: 2s;
+        }
+
+        .menu {
+            width: 30%;
+            background-color: #552288;
+
+            transition: transform 0.5s liner; 
+        }
+
+        .scale-collapse {
+            transform: scaleX(0.5);
+        }
+
+        .scale-expand {
+            transform: scaleX(1);
+        }
+
+        .collapse {
+            width: 10%;
+            transition-property: width;
+            transition-duration: 0.5s;
+            /* transform: translateX(10);
+            animation-name: collapse-menu;
+            animation-duration: 2s; */
+        }
+
+        .expand {
+            width: 30%;
+            transition-property: width;
+            transition-duration: 0.5s;
+        }
+
+        .body {
+            flex-grow: 1;
+            background-color: #222233;
+        }
+        @keyframes expand-menu {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(205px);
+            }
+        }
+
+        @keyframes collapse-menu {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-205px);
+            }
+        }
+    </style>
+    
+    <script>
+        let isExpanded = true;
+
+        function handleClick(){
+            let elem = document.querySelector("#_menu");
+            if(isExpanded) {
+                elem.classList.toggle('collapse');
+                elem.classList.toggle('expand');
+                isExpanded = false;
+            } else {
+                elem.classList.toggle('collapse');
+                elem.classList.toggle('expand');
+                isExpanded = true;
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="_menu" class="item menu expand">1</div>
+        <div class="item body">2</div>
+    </div>
+<button onclick="handleClick()">Click</button>
+</body>
+</html>
