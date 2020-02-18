@@ -5,76 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animation</title>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
-        div {
-            box-sizing: border-box;
-            border: 1px solid grey;
-        }
-        .container {
-            display: flex;
-            height: 100%;
-        }
+        *{ margin: 0; padding: 0; }
 
-        .item {
-            padding: 1rem;
-        }
+        html, body { width: 100%; height: 100%; }
+
+        div { box-sizing: border-box; border: 1px solid grey; }
+
+        .container { display: flex; height: 100%; }
+
+        .item { padding: 1rem; }
+
         .txt-block { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .menu-expanded {
-            width: 17.5rem;
-            transform: translateX(0);
+        .expand {
+            transform: translateX(12.5rem);
             animation-name: expand-menu;
-            animation-duration: 2s;
+            animation-duration: .5s;
         }
 
-        .menu-collapsed {
-            /* width: 5rem; */
+        .collapse {
             transform: translateX(0);
             animation-name: collapse-menu;
-            animation-duration: 2s;
+            animation-duration: .5s;
         }
 
         .menu {
+            position:fixed;
+            left: -12.5rem;
             width: 17.5rem;
             height: 100%;
             overflow: hidden;
             background-color: #119955;
-            transition: transform 0.5s liner; 
-        }
-
-        .scale-collapse {
-            transform: scaleX(0.5);
-        }
-
-        .scale-expand {
-            transform: scaleX(1);
-        }
-
-        .collapse {
-            width: 5rem;
-            animation-name: collapse-menu;
-            animation-duration: .2s;
-            /* transition-property: width;
-            transition-duration: 0.5s; */
-
-            /* transform: translateX(10);
-            animation-name: collapse-menu;
-            animation-duration: 2s; */
-        }
-
-        .expand {
-            width: 17.5rem;
-            animation-name: expand-menu;
-            animation-duration: .2s;
-            /* transition-property: width;
-            transition-duration: 0.5s; */
+            /* transition: transform 0.5s liner;  */
         }
 
         .body {
@@ -82,35 +44,31 @@
             background-color: #222233;
             color: #fefefe;
         }
-        @keyframes expand-menu {
-            0% {
-                width: 5rem;
-            }
-            100% {
-                width: 17.5rem;
-            }
+
+        @keyframes expand-menu { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(12.5rem); } 
         }
 
-        @keyframes collapse-menu {
-            0% {
-                width: 17.5rem;
-            }
-            100% {
-                width: 5rem;
-            }
+        @keyframes collapse-menu { 
+            0% { transform: translateX(12.5rem); } 
+            100% { transform: translateX(0); } 
         }
     </style>
     
     <script>
-        function handleClick(){
-            let elem = document.querySelector("#_menu");
-            const txtBlocks = document.querySelectorAll(".item");
+        let expanded = true;
+        let elem, buttonBlock;
 
+        function handleClick(){
+            !elem && (elem = document.querySelector("#_menu"));
+            !buttonBlock && (buttonBlock = document.querySelector("#buttonBlock"));
+            
+            buttonBlock.style.justifyContent = expanded ? "flex-end" : "flex-start";
             elem.classList.toggle('collapse');
             elem.classList.toggle('expand');
-            txtBlocks.forEach(item => {
-                item.classList.toggle('txt-block');
-            })
+
+            expanded = !expanded;
         }
 
     </script>
@@ -118,7 +76,9 @@
 <body>
     <div class="container">
         <div id="_menu" class="item menu expand">
-            <button onclick="handleClick()">Click</button>
+            <div id="buttonBlock" style="display:flex; justify-content: flex-start">
+                <button onclick="handleClick()">Click</button>
+            </div>
             <div class="item">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             <div class="item">Donec placerat sodales facilisis. Vivamus ac vehicula lorem.</div>
             <div class="item">Donec non accumsan velit. Sed gravida odio at rhoncus sodales.</div>
