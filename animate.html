@@ -27,54 +27,27 @@
         }
         .txt-block { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .menu-expanded {
-            width: 17.5rem;
-            transform: translateX(0);
-            animation-name: expand-menu;
-            animation-duration: 2s;
-        }
-
-        .menu-collapsed {
-            /* width: 5rem; */
-            transform: translateX(0);
-            animation-name: collapse-menu;
-            animation-duration: 2s;
-        }
-
         .menu {
-            width: 17.5rem;
             height: 100%;
             overflow: hidden;
             background-color: #119955;
             transition: transform 0.5s liner; 
         }
 
-        .scale-collapse {
-            transform: scaleX(0.5);
-        }
-
-        .scale-expand {
-            transform: scaleX(1);
+        .default-width {
+            width: 17.5rem;
         }
 
         .collapse {
             width: 5rem;
             animation-name: collapse-menu;
             animation-duration: .2s;
-            /* transition-property: width;
-            transition-duration: 0.5s; */
-
-            /* transform: translateX(10);
-            animation-name: collapse-menu;
-            animation-duration: 2s; */
         }
 
-        .expand {
+        .menu>.expand {
             width: 17.5rem;
             animation-name: expand-menu;
             animation-duration: .2s;
-            /* transition-property: width;
-            transition-duration: 0.5s; */
         }
 
         .body {
@@ -102,22 +75,62 @@
     </style>
     
     <script>
+        let expanded = null;
+
         function handleClick(){
+            
             let elem = document.querySelector("#_menu");
             const txtBlocks = document.querySelectorAll(".item");
+            elem.addEventListener('animationend', (e) => {
+                const elem = e.target;
+                const classes = elem.classList.value;
+                if(classes.includes('expand')) {
+                    elem.classList.remove('expand')
+                }
+                console.log('Animation ended', elem.classList);
+            });
 
-            elem.classList.toggle('collapse');
-            elem.classList.toggle('expand');
+            // First time. Need to collapse
+            if(expanded == null || expanded === true) {
+                console.log('collapsing');
+                expanded = false;
+                addClass(elem, 'collapse');
+                return;
+            }
+
+            if(expanded != null && expanded === false) {
+                console.log('expanding');
+                expanded = true;
+                addClass(elem, 'expand');
+                return;
+            }
+
+            // elem.classList.toggle('collapse');
+            // elem.classList.toggle('expand');
             txtBlocks.forEach(item => {
                 item.classList.toggle('txt-block');
             })
         }
+    
+    function removeClass(elem, className) {
+        console.log('set timeout');
+        elem.classList.remove(className);
+    }
+
+    function addClass(elem, className) {
+        elem.classList.add(className);
+
+        // setTimeout(removeClass, 2000, elem, className);
+        // elem.classList.toggle(className);
+    }
+
+
 
     </script>
 </head>
 <body>
     <div class="container">
-        <div id="_menu" class="item menu expand">
+        <div id="_menu" class="item menu default-width">
             <button onclick="handleClick()">Click</button>
             <div class="item">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             <div class="item">Donec placerat sodales facilisis. Vivamus ac vehicula lorem.</div>
@@ -132,7 +145,7 @@
             <div class="item">Duis et tortor non lectus molestie lacinia eget nec nibh.</div>
         </div>
         <div class="item body">
-            <h1>TranslateX</h1>
+            <h1>Transition</h1>
         </div>
     </div>
 </body>
